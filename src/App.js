@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React,  { useState, useEffect } from "react";
 import { Routes, Route, 
   //Link
 } from "react-router-dom";
-import "bootstrap/dist/css/bootstrap.min.css";
+//import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import AuthService from "./services/auth.service";
 import Login from "./components/Login";
@@ -33,11 +33,14 @@ const App = () => {
   const [showModeratorBoard, setShowModeratorBoard] = useState(false);
   const [showAdminBoard, setShowAdminBoard] = useState(false);
   const [currentUser, setCurrentUser] = useState(undefined);
-  // const pages = ['Products', 'Pricing', 'Blog'];
-  const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+  const pages = ['Products', 'Pricing', 'Blog'];
+  const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];  
+  const [anchorElNav, setAnchorElNav] = React.useState(null);
+  const [anchorElUser, setAnchorElUser] = React.useState(null);
 
   useEffect(() => {
     const user = AuthService.getCurrentUser();
+    
 
     if (user) {
       setCurrentUser(user);
@@ -61,10 +64,32 @@ const App = () => {
     setCurrentUser(undefined);
   };
 
+  const handleOpenNavMenu = (event) => {
+    setAnchorElNav(event.currentTarget);
+  };
+  const handleOpenUserMenu = (event) => {
+    setAnchorElUser(event.currentTarget);
+  };
+
+  const handleCloseNavMenu = () => {
+    setAnchorElNav(null);
+  };
+
+  const handleCloseUserMenu = () => {
+    setAnchorElUser(null);
+  };
+
   return (
 
     <Grid container 
-          maxWidth="xl">
+    display={"flex"}
+    flexDirection={"column"}
+    direction={"column"}
+    justifyItems={"center"}
+    justifyContent={"center"}
+    alignContent={"center"}
+    alignItems={"center"}
+          >
 
       
 
@@ -83,7 +108,7 @@ const App = () => {
             component="a"
             href="/"
             sx={{
-              mr: 2,
+              mr: 6,
               display: { xs: 'none', md: 'flex' },
               fontFamily: 'monospace',
               fontWeight: 700,
@@ -96,7 +121,7 @@ const App = () => {
             <Box
           component="img"
           sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }}
-          width={'10rem'}
+          width={'12rem'}
           src="ml-logo.png"
           >
 
@@ -111,7 +136,7 @@ const App = () => {
               aria-label="account of current user"
               aria-controls="menu-appbar"
               aria-haspopup="true"
-              // onClick={handleOpenNavMenu}
+              onClick={handleOpenNavMenu}
               color="inherit"
             >
               <MenuIcon/>
@@ -128,12 +153,21 @@ const App = () => {
                 vertical: 'top',
                 horizontal: 'left',
               }}
-              // open={Boolean(anchorElNav)}
-              // onClose={handleCloseNavMenu}
+               open={Boolean(anchorElNav)}
+               onClose={handleCloseNavMenu}
               sx={{
                 display: { xs: 'block', md: 'none' },
               }}
             >
+
+            <MenuItem 
+              component="a"
+              href="/home"
+              key="home"
+              //onClick={handleClose}
+            >
+              Home
+              </MenuItem>
               {/* {pages.map((page) => (
                 <MenuItem key={page} 
                 // onClick={handleCloseNavMenu}
@@ -141,6 +175,9 @@ const App = () => {
                   <Typography textAlign="center">{page}</Typography>
                 </MenuItem>
               ))} */}
+
+
+
             </Menu>
           </Box>
 
@@ -173,8 +210,6 @@ const App = () => {
           MarketPlace
           </Typography>
 
-
-
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
               <Button 
               component="a"
@@ -183,6 +218,15 @@ const App = () => {
                  sx={{ my: 2, color: 'white', display: 'block' }}
               >
                 Home
+              </Button>
+              
+              <Button 
+              component="a"
+              href="/home"
+                key="home"
+                 sx={{ my: 2, color: 'white', display: 'block' }}
+              >
+                Shop
               </Button>
 
               {showModeratorBoard && (
@@ -218,18 +262,52 @@ const App = () => {
               </Button>
             ))} */}
 
-            <Divider orientation="vertical" flexItem />
+            {/* <Divider orientation="vertical" flexItem /> */}
+            
+            {currentUser && (
+            // <li className="nav-item">
+            //   <Link to={"/user"} className="nav-link">
+            //     User
+            //   </Link>
+            // </li>
 
+
+              <Button 
+              component="a"
+              href="/user"
+                key="user"
+                sx={{ my: 2, color: 'white', display: 'block' }}
+              >
+                User
+              </Button>
+          )}
 
 
             {currentUser ? (
-              <Grid container orientation="row">
-              <Button 
-                  component="a"
-                  href="/profile"
-                    key="profile"
-                    sx={{ my: 2, color: 'white', display: 'block' }}
-                  >
+              <Grid container 
+                    display={"flex"}
+                    flexDirection={"row"}
+                    direction={"row"}
+                    justifyItems={"center"}
+                    justifyContent={"center"}
+                    orientation="row"
+                    alignContent={"end"}
+                    alignItems={"end"}
+                    >
+
+
+                  <Grid item  display={"flex"}
+                    justifyItems={"center"}
+                    justifyContent={"center"}
+                    alignContent={"end"}
+                    alignItems={"end"}>
+
+                  <Button 
+                    component="a"
+                    href="/profile"
+                      key="profile"
+                      sx={{ my: 2, color: 'white', display: 'block' }}
+                    >
                     {currentUser.username}
                   </Button>
 
@@ -242,10 +320,21 @@ const App = () => {
                      LogOut
                   </Button>
                   </Grid>
-
-           
+              
+                  </Grid>
             ) : (
-              <Grid container>
+
+              <Grid container
+              isplay={"flex"}
+                    flexDirection={"row"}
+                    direction={"row"}
+                    justifyItems={"center"}
+                    justifyContent={"center"}
+                    orientation="row"
+                    alignContent={"end"}
+                    alignItems={"end"}
+              
+              >
               <Button 
               component="a"
               href="/login"
@@ -273,7 +362,7 @@ const App = () => {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton 
-              // onClick={handleOpenUserMenu} 
+                onClick={handleOpenUserMenu} 
                 sx={{ p: 0 }}>
                 <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
               </IconButton>
@@ -281,7 +370,7 @@ const App = () => {
             <Menu
               sx={{ mt: '45px' }}
               id="menu-appbar"
-              // anchorEl={anchorElUser}
+              anchorEl={anchorElUser}
               anchorOrigin={{
                 vertical: 'top',
                 horizontal: 'right',
@@ -291,12 +380,12 @@ const App = () => {
                 vertical: 'top',
                 horizontal: 'right',
               }}
-              // open={Boolean(anchorElUser)}
-              // onClose={handleCloseUserMenu}
+              open={Boolean(anchorElUser)}
+              onClose={handleCloseUserMenu}
             >
               {settings.map((setting) => (
                 <MenuItem key={setting} 
-                //  onClick={handleCloseUserMenu}
+                onClick={handleCloseUserMenu}
                  >
                   <Typography textAlign="center">{setting}</Typography>
                 </MenuItem>

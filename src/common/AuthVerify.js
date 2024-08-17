@@ -1,5 +1,7 @@
 import React from "react";
-import { withRouter } from "react-router-dom";
+//import { withRouter } from "react-router-dom";
+import {withRouter} from "./ComponentWithRouterProp";
+import { Login } from "@mui/icons-material";
 
 const parseJwt = (token) => {
   try {
@@ -22,7 +24,7 @@ const AuthVerify = (props) => {
     }
   });
 
-  return <div></div>;
+  return (<div><Login></Login></div>);
 };
 
 export default withRouter(AuthVerify);

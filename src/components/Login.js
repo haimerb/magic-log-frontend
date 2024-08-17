@@ -5,8 +5,8 @@ import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 
 import AuthService from "../services/auth.service";
-import { Grid, TextField  } from "@mui/material";
-import Button from "react-validation/build/button";
+import { Button, Card, Grid, TextField  } from "@mui/material";
+
 
 const required = (value) => {
   if (!value) {
@@ -73,76 +73,228 @@ const Login = () => {
   return (
   
   
-  <Grid container 
+  <Grid 
+        container 
         spacing={2}
         display={"flex"}
-        flexDirection={"column"}>
+        flexDirection={"row"}
+        direction={"row"}
+        className="card card-container"
+        elevation={5}
+        justifyItems={"center"}
+        justifyContent={"center"}
+        alignContent={"center"}
+        alignItems={"center"}
+        style={{marginTop:"8rem"}}
+        >
 
-    <div className="col-md-12">
-      <div className="card card-container">
+    {/* <div className="col-md-12"> */}
+      {/* <div className="card card-container"> */}
+      
+      
+
+      <Grid 
+      item
+      className="card card-container"
+      elevation={5}
+      justifyItems={"center"}
+      justifyContent={"center"}
+      alignContent={"center"}
+      alignItems={"center"}
+      style={{marginTop:"8rem"}}    
+      flexDirection={"row"}      
+      >
+
+      <Grid 
+        container 
+        // maxWidth="xl"
+        spacing={4}
+        display={"flex"}
+        flexDirection={"row"}
+        direction={"row"}
+        justifyItems={"center"}
+        justifyContent={"center"}
+        alignContent={"center"}
+        alignItems={"center"}
+        >
+
+
+        <Grid 
+      item 
+         justifyItems={"center"}
+         justifyContent={"center"}
+         alignContent={"center"}
+         alignItems={"center"}
+         flexDirection={"row"}  
+         >
+      
         <img
           src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
           alt="profile-img"
           className="profile-img-card"
         />
 
-        
-        <Form onSubmit={handleLogin} ref={form}>
-          <Grid item className="form-group">
-            {/* <label htmlFor="username">Username</label>
-            <Input
-              type="text"
-              className="form-control"
-              name="username"
-              value={username}
-              onChange={onChangeUsername}
-              validations={[required]}
-            /> */}
-            <TextField 
-                  type="text"
-                      id="outlined-basic" 
-                       className="form-control"
-                       label="Username" variant="outlined" 
-                       name="username"
-                       value={username}
-                       onChange={onChangeUsername}
-                       validations={[required]}
-              />
-          </Grid>
+        </Grid>
+  
+        <Grid 
+          container 
+          justifyItems={"center"}
+          justifyContent={"center"}
+          alignContent={"center"}
+          alignItems={"center"}
+          flexDirection={"row"}   
+          direction={"row"}
+          >
 
-          <div className="form-group">
-            <label htmlFor="password">Password</label>
-            <Input
-              type="password"
-              className="form-control"
-              name="password"
-              value={password}
-              onChange={onChangePassword}
-              validations={[required]}
-            />
-          </div>
+          <Form onSubmit={handleLogin} ref={form}>
+            
+            <Grid 
+              item 
+              justifyItems={"center"}
+              justifyContent={"center"}
+              alignContent={"center"}
+              alignItems={"center"}
+              flexDirection={"row"}  
+            // className="form-group"
+            >
+              {/* <label htmlFor="username">Username</label>
+              <Input
+                type="text"
+                className="form-control"
+                name="username"
+                value={username}
+                onChange={onChangeUsername}
+                validations={[required]}
+              /> */}
+              <TextField 
+                    type="text"
+                        id="outlined-basic" 
+                        className="form-control"
+                        label="Username" variant="outlined" 
+                        name="username"
+                        value={username}
+                        onChange={onChangeUsername}
+                        validations={[required]}
+                />
+            </Grid>
 
-          <div className="form-group">
-            <button className="btn btn-primary btn-block" disabled={loading}>
-              {loading && (
-                <span className="spinner-border spinner-border-sm"></span>
-              )}
-              <span>Login</span>
-            </button>
-          </div>
 
-          {message && (
-            <div className="form-group">
-              <div className="alert alert-danger" role="alert">
-                {message}
+            <Grid 
+              item 
+              justifyItems={"center"}
+              justifyContent={"center"}
+              alignContent={"center"}
+              alignItems={"center"}
+              flexDirection={"row"}  
+            // className="form-group"
+            >
+              
+
+              {/* <div className="form-group"> */}
+              {/* <label htmlFor="password">Password</label>
+              <Input
+                type="password"
+                className="form-control"
+                name="password"
+                value={password}
+                onChange={onChangePassword}
+                validations={[required]}
+              /> */}
+
+  |            <TextField 
+                  id="outlined-basic" 
+                  label="Password" variant="outlined" 
+                  type="password"
+                  className="form-control"
+                        name="password"
+                        value={password}
+                        onChange={onChangePassword}
+                        validations={[required]}
+                />
+
+              {/* </div> */}
+            </Grid>
+
+            {/* <div className="form-group"> */}
+              {/* <label htmlFor="password">Password</label>
+              <Input
+                type="password"
+                className="form-control"
+                name="password"
+                value={password}
+                onChange={onChangePassword}
+                validations={[required]}
+              /> */}
+
+  {/* |            <TextField 
+                  id="outlined-basic" 
+                  label="Password" variant="outlined" 
+                  type="password"
+                  className="form-control"
+                        name="password"
+                        value={password}
+                        onChange={onChangePassword}
+                        validations={[required]}
+                /> */}
+
+            {/* </div> */}
+
+
+            <Grid 
+              item 
+              justifyItems={"center"}
+              justifyContent={"center"}
+              alignContent={"center"}
+              alignItems={"center"}
+              flexDirection={"row"}  
+            // className="form-group"
+            >
+
+
+              <Button 
+              variant="contained"
+              // className="btn btn-primary btn-block" 
+              disabled={loading}
+              >
+                {loading && (
+                  <span 
+                  className="spinner-border spinner-border-sm"
+                  ></span>
+                )}
+                {/* <span>Login</span> */}
+                Login
+              </Button>
+            
+
+            </Grid>
+
+            {/* <div className="form-group">
+              <button className="btn btn-primary btn-block" disabled={loading}>
+                {loading && (
+                  <span className="spinner-border spinner-border-sm"></span>
+                )}
+                <span>Login</span>
+              </button>
+            </div> */}
+
+            {message && (
+              <div className="form-group">
+                <div className="alert alert-danger" role="alert">
+                  {message}
+                </div>
               </div>
-            </div>
-          )}
-          <CheckButton style={{ display: "none" }} ref={checkBtn} />
-        </Form>
+            )}
+            <CheckButton style={{ display: "none" }} ref={checkBtn} />
+          </Form>
+
+
+
+        </Grid>
+        </Grid>
         
-      </div>
-    </div>
+        </Grid>
+          {/* </div> */}
+        {/* </div> */}
 
 
     </Grid>

@@ -1,8 +1,8 @@
 
-label {
+/* label {
   display: block;
   margin-top: 10px;
-}
+} */
 
 .card-container.card {
   max-width: 350px !important;
@@ -30,4 +30,8 @@ label {
   -moz-border-radius: 50%;
   -webkit-border-radius: 50%;
   border-radius: 50%;
+}
+
+.authAccess{
+  align-items: end;
 }
