@@ -252,6 +252,7 @@ const Login = () => {
 
 
               <Button 
+              type="submit"
               variant="contained"
               // className="btn btn-primary btn-block" 
               disabled={loading}

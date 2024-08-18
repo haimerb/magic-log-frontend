@@ -21,7 +21,12 @@
       "src": "ml-logo.png",
       "type": "image/png",
       "sizes": "512x512"
-    }
+    },
+    {
+      "src": "tenesi-producto001.jpeg",
+      "type": "image/png",
+      "sizes": "1024x1024"
+    }    
   ],
   "start_url": ".",
   "display": "standalone",
