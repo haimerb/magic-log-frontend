@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
 import {
-  Routes, Route,
-  //Link
+  Routes, Route  
 } from "react-router-dom";
-//import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import AuthService from "./services/auth.service";
 import Login from "./components/Login";
@@ -29,7 +27,7 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
-import Product from "./components/Product";
+import Inventary from "./components/Inventary";
 
 const App = () => {
   const [showModeratorBoard, setShowModeratorBoard] = useState(false);
@@ -647,7 +645,7 @@ const App = () => {
             <Routes>
               <Route exact path={"/"} element={<Home />} />
               <Route exact path={"/home"} element={<Home />} />
-              <Route exact path={"/product"} element={<Product />} />
+              <Route exact path={"/inventary"} element={<Inventary />} />
               <Route exact path="/login" element={<Login />} />
               <Route exact path="/register" element={<Register />} />
               <Route exact path="/profile" element={<Profile />} />

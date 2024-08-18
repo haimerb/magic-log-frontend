@@ -61,7 +61,7 @@ const vpassword = (value) => {
 };
 
 
-const Product = () => {
+const Inventary = () => {
   const form = useRef();
   const checkBtn = useRef();
   const [content, setContent] = useState("");
@@ -620,4 +620,4 @@ const Product = () => {
   );
 };
 
-export default Product;
+export default Inventary;
