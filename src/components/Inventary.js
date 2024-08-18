@@ -1,18 +1,19 @@
 import React, { useState, useEffect, useRef } from "react";
 import UserService from "../services/user.service";
-import { 
-  Box, 
-  Button, 
-  Dialog, 
-  DialogActions, 
-  DialogContent, 
-  DialogContentText, 
-  DialogTitle, 
-  Divider, 
-  Grid, 
-  TextField, 
-  Typography } from "@mui/material";
-import {  useNavigate } from "react-router-dom";
+import {
+  Box,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  Divider,
+  Grid,
+  TextField,
+  Typography
+} from "@mui/material";
+import { useNavigate } from "react-router-dom";
 import AuthService from "../services/auth.service";
 import Form from "react-validation/build/form";
 
@@ -75,7 +76,7 @@ const Inventary = () => {
   const [creaProdNotLoging, setCreaProdNotLoging] = useState("");
   const [email, setEmail] = useState("");
   const [successful, setSuccessful] = useState(false);
-  
+
 
   const navigate = useNavigate();
 
@@ -221,11 +222,12 @@ const Inventary = () => {
         justifyContent={"center"}
         alignContent={"center"}
         alignItems={"center"}
-        xl={2}
+        xl={12}
+        lg={12}
         spacing={2}
         gap={2}
         border={'.1rem solid rgba(0, 2, 2, 0.1)'}
-        marginTop={5}
+        marginTop={'12%'}
         backgroundColor="hsla(213, 100%, 50%, 0.1)"
         borderRadius={'.23rem'}
       >
@@ -239,10 +241,11 @@ const Inventary = () => {
           justifyContent={"center"}
           alignContent={"center"}
           alignItems={"center"}
-          xl={1}
+          xl={8}
+          lg={8}
           marginTop={'2rem'}
           spacing={2}
-          width={'50%'}
+          // width={'60%'}
           height={'12rem'}
           sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }}
           marginBottom={'2rem'}
@@ -252,7 +255,7 @@ const Inventary = () => {
             component="img"
             sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }}
             width={'70%'}
-            height={'100%'}
+            height={'70%'}
             src="tenesi-producto001.jpeg"
           >
 
@@ -264,6 +267,8 @@ const Inventary = () => {
 
         <Grid
           item
+          lx={4}
+          lg={4}
           display={"flex"}
           flexDirection={"row"}
           direction={"row"}
@@ -283,7 +288,7 @@ const Inventary = () => {
             Crea tu propio producto
           </Typography>
 
-          <Button type="button" variant="outlined" onClick={handleClickOpenPre}>Crear Producto</Button>
+          <Button size="medium" type="button" variant="outlined" onClick={handleClickOpenPre}>Crear Producto</Button>
         </Grid>
 
 
@@ -324,11 +329,11 @@ const Inventary = () => {
         onClose={handleClose}
       >
         <DialogTitle>Iniciar sesión</DialogTitle>
-        <Divider orientation="horizontal" flexItem/>
+        <Divider orientation="horizontal" flexItem />
         <DialogContent>
           <DialogContentText>
           </DialogContentText>
-          
+
           <Grid
             item
             className="card card-container"
@@ -424,7 +429,7 @@ const Inventary = () => {
                       validations={[required]}
                     />
 
-                    
+
                   </Grid>
 
                   <Grid
@@ -480,24 +485,24 @@ const Inventary = () => {
         onClose={handleCloseCreaAccount}
       >
         <DialogTitle>Iniciar sesión</DialogTitle>
-        <Divider orientation="horizontal" flexItem/>
+        <Divider orientation="horizontal" flexItem />
         <DialogContent>
           <DialogContentText>
           </DialogContentText>
           <div className="col-md-12">
-      <div className="card card-container">
-        <img
-          src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
-          alt="profile-img"
-          className="profile-img-card"
-        />
+            <div className="card card-container">
+              <img
+                src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
+                alt="profile-img"
+                className="profile-img-card"
+              />
 
-        <Form onSubmit={handleRegister} ref={form}>
-          {!successful && (
-            <div>
-              <div className="form-group">
-                <label htmlFor="username">Username</label>
-                {/* <Input
+              <Form onSubmit={handleRegister} ref={form}>
+                {!successful && (
+                  <div>
+                    <div className="form-group">
+                      <label htmlFor="username">Username</label>
+                      {/* <Input
                   type="text"
                   className="form-control"
                   name="username"
@@ -507,21 +512,21 @@ const Inventary = () => {
 
                 /> */}
 
-                <TextField 
-                    type="text"
-                        id="outlined-basic" 
+                      <TextField
+                        type="text"
+                        id="outlined-basic"
                         className="form-control"
-                        label="Username" variant="outlined" 
+                        label="Username" variant="outlined"
                         name="username"
                         value={username}
                         onChange={onChangeUsername}
                         validations={[required]}
-                />
-              </div>
+                      />
+                    </div>
 
-              <div className="form-group">
-                <label htmlFor="email">Email</label>
-                {/* <Input
+                    <div className="form-group">
+                      <label htmlFor="email">Email</label>
+                      {/* <Input
                   type="text"
                   className="form-control"
                   name="email"
@@ -530,21 +535,21 @@ const Inventary = () => {
                   validations={[required, validEmail]}
                 /> */}
 
-                <TextField 
-                    type="text"
-                        id="outlined-basic" 
+                      <TextField
+                        type="text"
+                        id="outlined-basic"
                         className="form-control"
-                        label="Username" variant="outlined" 
+                        label="Username" variant="outlined"
                         name="email"
                         value={email}
                         onChange={onChangeEmail}
                         validations={[required]}
-                />
-              </div>
+                      />
+                    </div>
 
-              <div className="form-group">
-                <label htmlFor="password">Password</label>
-                {/* <Input
+                    <div className="form-group">
+                      <label htmlFor="password">Password</label>
+                      {/* <Input
                   type="password"
                   className="form-control"
                   name="password"
@@ -552,40 +557,40 @@ const Inventary = () => {
                   onChange={onChangePassword}
                   validations={[required, vpassword]}
                 /> */}
-                 <TextField 
-                  id="outlined-basic" 
-                  label="Password" variant="outlined" 
-                  type="password"
-                  className="form-control"
+                      <TextField
+                        id="outlined-basic"
+                        label="Password" variant="outlined"
+                        type="password"
+                        className="form-control"
                         name="password"
                         value={password}
                         onChange={onChangePassword}
                         validations={[required]}
-                />
-              </div>
+                      />
+                    </div>
 
-              <div className="form-group">
-                <button className="btn btn-primary btn-block">Sign Up</button>
-              </div>
-            </div>
-          )}
+                    <div className="form-group">
+                      <button className="btn btn-primary btn-block">Sign Up</button>
+                    </div>
+                  </div>
+                )}
 
-          {message && (
-            <div className="form-group">
-              <div
-                className={
-                  successful ? "alert alert-success" : "alert alert-danger"
-                }
-                role="alert"
-              >
-                {message}
-              </div>
+                {message && (
+                  <div className="form-group">
+                    <div
+                      className={
+                        successful ? "alert alert-success" : "alert alert-danger"
+                      }
+                      role="alert"
+                    >
+                      {message}
+                    </div>
+                  </div>
+                )}
+                <CheckButton style={{ display: "none" }} ref={checkBtn} />
+              </Form>
             </div>
-          )}
-          <CheckButton style={{ display: "none" }} ref={checkBtn} />
-        </Form>
-      </div>
-    </div>
+          </div>
         </DialogContent>
 
         <DialogActions>
@@ -597,16 +602,16 @@ const Inventary = () => {
       {/* Modal Previo al inicio de sesion o creacion de cuenta*/}
       <Dialog
         open={openPre}
-        onClose={handleClosePre}        
+        onClose={handleClosePre}
       >
         <DialogTitle>Crea una cuenta</DialogTitle>
-        <Divider orientation="horizontal" flexItem/>
+        <Divider orientation="horizontal" flexItem />
         <DialogContent justifyContent="center">
           <DialogContentText>
             Registrate o inicia sesióm para mepezar a agregar productos a tu inventario.
           </DialogContentText>
-          
-      
+
+
           <Button onClick={handleClickOpenSession}>Iniciar Sesión</Button>
           <Button variant="contained" onClick={handleClickOpenCreaAccount}>Crear cuenta</Button>
         </DialogContent>
@@ -615,7 +620,7 @@ const Inventary = () => {
           <Button type="submit">Subscribe</Button> */}
         </DialogActions>
       </Dialog>
-      
+
     </Grid>
   );
 };

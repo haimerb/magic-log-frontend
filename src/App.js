@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import {
-  Routes, Route  
+  Routes, Route
 } from "react-router-dom";
 import "./App.css";
 import AuthService from "./services/auth.service";
@@ -89,7 +89,7 @@ const App = () => {
       justifyItems={"center"}
       justifyContent={"center"}
       alignContent={"center"}
-      alignItems={"center"}      
+      alignItems={"center"}
     >
 
       {/* <Grid
@@ -555,32 +555,32 @@ const App = () => {
                   alignContent={"end"}
                   alignItems={"end"}>
 
-                  <Button
+                  {/* <Button
                     component="a"
                     href="/profile"
                     key="profile"
                     sx={{ my: 2, color: 'white', display: 'block' }}
                   >
                     {currentUser.username}
-                  </Button>
+                  </Button> */}
 
-                  <Button
+                  {/* <Button
                     component="a"
                     href="/login"
                     key="login"
                     sx={{ my: 2, color: 'white', display: 'block' }}
                   >
                     LogOut
-                  </Button>
+                  </Button> */}
 
                   <Button
-                component="a"
-                href="/product"
-                key="product"
-                sx={{ my: 2, color: 'white', display: 'block' }}
-              >
-                Invetary
-            </Button>
+                    component="a"
+                    href="/inventary"
+                    key="inventary"
+                    sx={{ my: 2, color: 'white', display: 'block' }}
+                  >
+                    Invetary
+                  </Button>
                 </Grid>
 
               </Grid>
@@ -619,16 +619,16 @@ const App = () => {
 
               <Button
                 component="a"
-                href="/product"
-                key="product"
+                href="/inventary"
+                key="inventary"
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
                 Invetary
-            </Button>
+              </Button>
 
             )}
 
-            
+
 
           </Grid>
           <Divider
@@ -640,7 +640,7 @@ const App = () => {
           <Grid
             xl={8}
             item
-            style={{ width: '70%',marginLeft: '2rem'  }}
+            style={{ width: '70%', marginLeft: '2rem' }}
           >
             <Routes>
               <Route exact path={"/"} element={<Home />} />
