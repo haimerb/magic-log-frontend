@@ -35,3 +35,12 @@
 .authAccess{
   align-items: end;
 }
+
+.menu-left
+{
+ width: '15%';
+ color:#132;
+}
+.menu-left a{
+  color: hsla(213, 100%, 1.1%, 0.8);
+}
