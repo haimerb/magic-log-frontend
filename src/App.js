@@ -89,7 +89,7 @@ const App = () => {
       justifyItems={"center"}
       justifyContent={"center"}
       alignContent={"center"}
-      alignItems={"center"}
+      alignItems={"center"}      
     >
 
       {/* <Grid
@@ -165,9 +165,11 @@ const App = () => {
 
       <AppBar position="static">
 
-        <Container maxWidth="xl">
+        <Container 
+          maxWidth="lg">
 
-          <Toolbar disableGutters>
+          <Toolbar 
+           disableGutters>
             {/* <AdbIcon 
            src="ml-logo.png" 
           sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} /> */}

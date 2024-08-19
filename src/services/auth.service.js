@@ -37,7 +37,17 @@ const getCurrentUser = () => {
   return JSON.parse(localStorage.getItem("user"));
 };
 
+const getInCreateProduct = () => {
+  return JSON.parse(localStorage.getItem("inCreateProduct"));
+};
+
+const setInCreateProduct = () => {
+  localStorage.setItem("inCreateProduct", JSON.stringify(true));
+};
+
 const AuthService = {
+  getInCreateProduct,
+  setInCreateProduct,
   register,
   login,
   logout,

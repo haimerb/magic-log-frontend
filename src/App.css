@@ -39,8 +39,8 @@
 .menu-left
 {
  width: '15%';
+ color:#132;
 }
-
 .menu-left a{
-  color: #1976d2;
+  color: hsla(213, 100%, 1.1%, 0.8);
 }

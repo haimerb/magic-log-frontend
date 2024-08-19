@@ -19,6 +19,8 @@ import Form from "react-validation/build/form";
 
 import CheckButton from "react-validation/build/button";
 import { isEmail } from "validator";
+import EventBus from "../common/EventBus";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 
 const required = (value) => {
@@ -73,12 +75,37 @@ const Inventary = () => {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
+  const [nameProduct, setNameProduct] = useState("");
+  const [descriptionProduct, setDescriptionProduct] = useState("");
+  const [quantity, setQuantity] = useState(0);
+  const [price, setPrice] = useState(0);
   const [creaProdNotLoging, setCreaProdNotLoging] = useState("");
   const [email, setEmail] = useState("");
   const [successful, setSuccessful] = useState(false);
-
+  const [currentUser, setCurrentUser] = useState(undefined);
+  const [inCreateProduct, setInCreateProduct] = React.useState(false);
 
   const navigate = useNavigate();
+
+  const onChangeNameProduct= (e) => {
+    const nameProduct = e.target.value;
+    setNameProduct(nameProduct);
+  };
+
+  const onChangeDescriptionProduct = (e) => {
+    const descriptionProduct = e.target.value;
+    setDescriptionProduct(descriptionProduct);
+  };
+
+  const onChangeQuantity = (e) => {
+    const quantity = e.target.value;
+    setQuantity(quantity);
+  };
+
+  const onChangePrice = (e) => {
+    const price = e.target.value;
+    setPrice(price);
+  };
 
   const onChangeUsername = (e) => {
     const username = e.target.value;
@@ -101,7 +128,13 @@ const Inventary = () => {
     if (checkBtn.current.context._errors.length === 0) {
       AuthService.login(username, password).then(
         () => {
-          navigate("/profile");
+          //navigate("/profile");
+          //setInCreateProduct(true);
+          console.log("Login inCreateProduct", inCreateProduct);
+          if (inCreateProduct === true) {
+            AuthService.setInCreateProduct();
+          }
+          navigate("/inventory");
           window.location.reload();
         },
         (error) => {
@@ -160,6 +193,7 @@ const Inventary = () => {
   };
 
   const handleClickOpenSession = () => {
+    setInCreateProduct(true);
     setOpenPre(false);
     setOpen(true);
   };
@@ -201,39 +235,50 @@ const Inventary = () => {
     );
   }, []);
 
+  useEffect(() => {
+    const user = AuthService.getCurrentUser();
+    console.log(AuthService.getInCreateProduct(), "useEffect");
+    setInCreateProduct(AuthService.getInCreateProduct() || false);
+
+    if (user) {
+      setCurrentUser(user);
+      //setShowModeratorBoard(user.roles.includes("ROLE_MODERATOR"));
+      //setShowAdminBoard(user.roles.includes("ROLE_ADMIN"));
+    }
+
+    EventBus.on("logout", () => {
+      logOut();
+    });
+
+    return () => {
+      EventBus.remove("logout");
+    };
+  }, []);
+
+  const logOut = () => {
+    AuthService.logout();
+    //setShowModeratorBoard(false);
+    //setShowAdminBoard(false);
+    setCurrentUser(undefined);
+  };
+
   return (
     <Grid
       container
       display={"flex"}
-      flexDirection={"column"}
-      direction={"column"}
+      flexDirection={"row"}
+      direction={"row"}
       justifyItems={"center"}
       justifyContent={"center"}
       alignContent={"center"}
       alignItems={"center"}
     >
-
-      <Grid
-        container
-        display={"flex"}
-        flexDirection={"row"}
-        direction={"row"}
-        justifyItems={"center"}
-        justifyContent={"center"}
-        alignContent={"center"}
-        alignItems={"center"}
-        xl={12}
-        lg={12}
-        spacing={2}
-        gap={2}
-        border={'.1rem solid rgba(0, 2, 2, 0.1)'}
-        marginTop={'12%'}
-        backgroundColor="hsla(213, 100%, 50%, 0.1)"
-        borderRadius={'.23rem'}
-      >
+      {console.log(inCreateProduct)}
+      {/* Crear producto o presentacion incial inventario*/}
+      {(currentUser && inCreateProduct) ? (
 
         <Grid
-          item
+          container
           display={"flex"}
           flexDirection={"row"}
           direction={"row"}
@@ -241,87 +286,363 @@ const Inventary = () => {
           justifyContent={"center"}
           alignContent={"center"}
           alignItems={"center"}
-          xl={8}
-          lg={8}
-          marginTop={'2rem'}
-          spacing={2}
-          // width={'60%'}
-          height={'12rem'}
-          sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }}
-          marginBottom={'2rem'}
         >
 
-          <Box
-            component="img"
-            sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }}
-            width={'70%'}
-            height={'70%'}
-            src="tenesi-producto001.jpeg"
+
+          <Grid
+            className="back"
+            display={'flex'}
+            flexDirection={'row'}
+            flexWrap={'noWrap'}
+            justifyContent="left"
+            alignItems="left"
+            style={{ width: '100%' }}
+            item
           >
 
-          </Box>
+            <Grid
+              container
+              display={"flex"}
+              flexDirection={"row"}
+              direction={"row"}
+              justifyItems={"center"}
+              justifyContent={"center"}
+              alignContent={"center"}
+              alignItems={"center"}
+              width={'auto'}
+              justifySelf={'center'}
+            >
 
-          {/* <h3>{content}</h3> */}
 
+              <Grid
+                item
+                display={"flex"}
+                flexDirection={"row"}
+                direction={"row"}
+                justifyItems={"center"}
+                justifyContent={"center"}
+                alignContent={"center"}
+                alignItems={"left"}
+                marginBottom={'3rem'}
+                justifySelf={'center'}
+              >
+
+                <Typography
+                  marginTop={'1rem'}
+                  variant="h6"
+                  onClick={handleClickOpen}
+                  component="a"
+                  sx={{
+                    mr: 1,
+                    display: { xs: 'none', md: 'flex' },
+                    fontFamily: 'monospace',
+                    fontWeight: 400,
+                    letterSpacing: '0rem',
+                    color: 'inherit',
+                    textDecoration: 'none',
+                  }}
+                  style={{ color: '#000 !importan' }}
+                >
+                  <ArrowBackIcon color="primary" style={{ marginRight: '.2rem', color: '#000' }} />
+                  Regresar
+                </Typography>
+              </Grid>
+
+            </Grid>
+          </Grid>
+          <Grid
+            item
+            className="back-content"
+            display={'flex'}
+            flexDirection={'column'}
+            flexWrap={'noWrap'}
+            justifyContent="center"
+            alignItems="center"
+            style={{ width: '100%' }}
+          >
+            <Grid
+              container
+              display={"flex"}
+              flexDirection={"column"}
+              direction={"column"}
+              justifyItems={"center"}
+              justifyContent={"center"}
+              alignContent={"center"}
+              alignItems={"center"}
+            >
+              <Grid
+                item
+                display={"flex"}
+                flexDirection={"column"}
+                direction={"column"}
+                justifyItems={"center"}
+                justifyContent={"center"}
+                alignContent={"center"}
+                alignItems={"center"}
+                justifySelf={'center'}
+                marginBottom={'2rem'}
+              >
+                <Typography
+                  marginTop={'2rem'}
+                  variant="h5"
+                  onClick={handleClickOpen}
+                  sx={{
+                    mr: 2,
+                    display: { xs: 'none', md: 'flex' },
+                    fontFamily: 'monospace',
+                    fontWeight: 400,
+                    color: 'inherit',
+                    textDecoration: 'none',
+                  }}
+                >
+                  Crear Producto
+                </Typography>
+              </Grid>
+              <Grid
+                item
+                display={"flex"}
+                flexDirection={"column"}
+                direction={"column"}
+                justifyItems={"center"}
+                justifyContent={"center"}
+                alignContent={"center"}
+                alignItems={"center"}
+              >
+                <Form onSubmit={handleLogin} ref={form}>
+
+                  <Grid
+                    container
+                    display={"flex"}
+                    flexDirection={"column"}
+                    direction={"column"}
+                    justifyItems={"center"}
+                    justifyContent={"center"}
+                    alignContent={"center"}
+                    alignItems={"center"}
+                    spacing={2}
+                  >
+                    <Grid
+                      item
+                      display={"flex"}
+                      flexDirection={"column"}
+                      direction={"column"}
+                      justifyItems={"center"}
+                      justifyContent={"center"}
+                      alignContent={"center"}
+                      alignItems={"center"}
+                    >
+                      <TextField
+                        component="item"
+                        type="text"
+                        id="outlined-basic"
+                        // className="form-control"
+                        label="Nombre Producto" variant="outlined"
+                        name="nameProduct"
+                        value={nameProduct}
+                        onChange={onChangeNameProduct}
+                        validations={[required]}
+                      />
+                    </Grid>
+                    <Grid
+                      item
+                      display={"flex"}
+                      flexDirection={"column"}
+                      direction={"column"}
+                      justifyItems={"center"}
+                      justifyContent={"center"}
+                      alignContent={"center"}
+                      alignItems={"center"}
+                    >
+                      <TextField
+                        component="item"
+                        type="text"
+                        id="outlined-basic"
+                        // className="form-control"
+                        label="Descripción" variant="outlined"
+                        name="descriptionProduct"
+                        value={descriptionProduct}
+                        onChange={onChangeDescriptionProduct}
+                        validations={[required]}
+                      />
+                    </Grid>
+
+                    <Grid
+                      item
+                      display={"flex"}
+                      flexDirection={"column"}
+                      direction={"column"}
+                      justifyItems={"center"}
+                      justifyContent={"center"}
+                      alignContent={"center"}
+                      alignItems={"center"}
+                    >
+                      <TextField
+                        component="item"
+                        type="number"
+                        id="outlined-basic"
+                        label="Cantidad" variant="outlined"
+                        name="quantity"
+                        value={quantity}
+                        onChange={onChangeQuantity}
+                        validations={[required]}
+                      />
+                    </Grid>
+                    <Grid
+                      item
+                      display={"flex"}
+                      flexDirection={"column"}
+                      direction={"column"}
+                      justifyItems={"center"}
+                      justifyContent={"center"}
+                      alignContent={"center"}
+                      alignItems={"center"}
+                    >
+                      <TextField
+                        component="item"
+                        type="number"
+                        id="outlined-basic"
+                        // className="form-control"
+                        label="Precio" variant="outlined"
+                        name="price"
+                        value={price}
+                        onChange={onChangePrice}
+                        validations={[required]}
+                      />
+                    </Grid>
+                  </Grid>
+                </Form>
+              </Grid>
+            </Grid>
+          </Grid>
         </Grid>
-
+      ) : (
         <Grid
-          item
-          lx={4}
-          lg={4}
-          display={"flex"}
-          flexDirection={"row"}
-          direction={"row"}
-          justifyItems={"center"}
-          justifyContent={"center"}
-          alignContent={"center"}
-          alignItems={"center"}
+          container
         >
+
+          <Grid
+            container
+            display={"flex"}
+            flexDirection={"row"}
+            direction={"row"}
+            justifyItems={"center"}
+            justifyContent={"center"}
+            alignContent={"center"}
+            alignItems={"center"}
+            xl={12}
+            lg={12}
+            spacing={2}
+            gap={2}
+            border={'.1rem solid rgba(0, 2, 2, 0.1)'}
+            marginTop={'12%'}
+            backgroundColor="hsla(213, 100%, 50%, 0.1)"
+            borderRadius={'.23rem'}
+          >
+
+            <Grid
+              item
+              display={"flex"}
+              flexDirection={"row"}
+              direction={"row"}
+              justifyItems={"center"}
+              justifyContent={"center"}
+              alignContent={"center"}
+              alignItems={"center"}
+              xl={8}
+              lg={8}
+              marginTop={'2rem'}
+              spacing={2}
+              // width={'60%'}
+              height={'12rem'}
+              sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }}
+              marginBottom={'2rem'}
+            >
+
+              <Box
+                component="img"
+                sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }}
+                width={'70%'}
+                height={'70%'}
+                src="tenesi-producto001.jpeg"
+              >
+
+              </Box>
+
+              {/* <h3>{content}</h3> */}
+
+            </Grid>
+
+            <Grid
+              item
+              lx={4}
+              lg={4}
+              display={"flex"}
+              flexDirection={"row"}
+              direction={"row"}
+              justifyItems={"center"}
+              justifyContent={"center"}
+              alignContent={"center"}
+              alignItems={"center"}
+            >
+
+              <Grid
+                container
+                display={"flex"}
+                flexDirection={"row"}
+                direction={"row"}
+                justifyItems={"center"}
+                justifyContent={"center"}
+                alignContent={"center"}
+                alignItems={"center"}
+              >
+
+                <Grid item>
+
+                  <Typography
+                    variant="h6"
+                    noWrap
+                    component="text"
+                    href="/"
+                  >
+                    Crea tu propio producto
+                  </Typography>
+
+                </Grid>
+
+                <Grid item>
+
+                  <Button size="medium" type="button" variant="outlined" onClick={handleClickOpenPre}>Crear Producto</Button>
+                </Grid>
+
+              </Grid>
+
+            </Grid>
+
+          </Grid>
 
           <Typography
-            variant="h5"
-            noWrap
-            component="text"
-            href="/"
-            xl={1}
+            marginTop={'1rem'}
+            variant="h6"
+            onClick={handleClickOpen}
+            component="a"
+            sx={{
+              mr: 1,
+              display: { xs: 'none', md: 'flex' },
+              fontFamily: 'monospace',
+              fontWeight: 400,
+              letterSpacing: '0rem',
+              color: 'hsla(213, 100%, 1.1%, 0.8)',
+              textDecoration: 'none',
+            }}
           >
-            Crea tu propio producto
+            Inicia sesion para poder ver tu inventario.
           </Typography>
 
-          <Button size="medium" type="button" variant="outlined" onClick={handleClickOpenPre}>Crear Producto</Button>
+
         </Grid>
+      )
+      }
 
-
-
-        {/* <Paper 
-        elevation={5} 
-        style={{backgroundColor:'#1976d2', width:'20rem',height:'20rem' }}
-      />
-        
-      <Paper /> */}
-
-        {/* <h3>{content}</h3> */}
-
-
-      </Grid>
-
-      <Typography
-        marginTop={'1rem'}
-        variant="h6"
-        onClick={handleClickOpen}
-        component="a"
-        sx={{
-          mr: 1,
-          display: { xs: 'none', md: 'flex' },
-          fontFamily: 'monospace',
-          fontWeight: 400,
-          letterSpacing: '0rem',
-          color: 'inherit',
-          textDecoration: 'none',
-        }}
-      >
-        Inicia sesion para poder ver tu inventario.
-      </Typography>
 
       {/* Inicio de sesion*/}
       <Dialog
@@ -610,8 +931,6 @@ const Inventary = () => {
           <DialogContentText>
             Registrate o inicia sesióm para mepezar a agregar productos a tu inventario.
           </DialogContentText>
-
-
           <Button onClick={handleClickOpenSession}>Iniciar Sesión</Button>
           <Button variant="contained" onClick={handleClickOpenCreaAccount}>Crear cuenta</Button>
         </DialogContent>
