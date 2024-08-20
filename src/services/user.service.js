@@ -1,7 +1,8 @@
 import axios from "axios";
 
 //const API_URL = "http://localhost:8080/api/";
-const API_URL = "http://ec2-18-116-0-96.us-east-2.compute.amazonaws.com:8080/api/";
+//const API_URL = "http://ec2-18-116-0-96.us-east-2.compute.amazonaws.com:8080/api/";
+const API_URL = "http://18.116.0.96:8080/api/";
 
 const getPublicContent = () => {
   return axios.get(API_URL + "all");
