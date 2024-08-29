@@ -1,8 +1,8 @@
 import axios from "axios";
 
-//const API_URL = "http://localhost:8080/api/auth/";
+const API_URL = "http://localhost:8080/api/auth/"; //--DEV
 //const API_URL = "http://ec2-18-116-0-96.us-east-2.compute.amazonaws.com:8080/api/auth/";
-const API_URL = "http://18.116.0.96:8080/api/auth/";
+//const API_URL = "http://18.116.0.96:8080/api/auth/"; //--PROD
 
 const register = (username, email, password) => {
   return axios.post(API_URL + "signup", {
@@ -30,9 +30,9 @@ const login = (username, password) => {
 const logout = () => {
   // localStorage.removeItem("user");
   localStorage.clear();
-  return axios.post(API_URL + "signout").then((response) => {
-    return response.data;
-  });
+  // return axios.post(API_URL + "signout").then((response) => {
+  //   return response.data;
+  // });
 };
 
 const getCurrentUser = () => {
@@ -43,8 +43,8 @@ const getInCreateProduct = () => {
   return JSON.parse(localStorage.getItem("inCreateProduct"));
 };
 
-const setInCreateProduct = () => {
-  localStorage.setItem("inCreateProduct", JSON.stringify(true));
+const setInCreateProduct = (val) => {
+  localStorage.setItem("inCreateProduct", JSON.stringify(val));
 };
 
 const AuthService = {
