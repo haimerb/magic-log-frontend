@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import {
-  Routes, Route
+  Routes, Route,
+  Navigate
 } from "react-router-dom";
 import "./App.css";
 import AuthService from "./services/auth.service";
@@ -62,6 +63,9 @@ const App = () => {
     setShowModeratorBoard(false);
     setShowAdminBoard(false);
     setCurrentUser(undefined);
+    setAnchorElUser(null);
+    Navigate("/home");
+    window.location.reload();
   };
 
   const handleOpenNavMenu = (event) => {
@@ -441,6 +445,12 @@ const App = () => {
                     <Typography textAlign="center">{setting}</Typography>
                   </MenuItem>
                 ))}
+                <MenuItem key={'logout'}
+                    onClick={logOut}
+                  >
+                    <Typography textAlign="center">LogOut</Typography>
+                  </MenuItem>
+
               </Menu>
             </Box>
 
@@ -619,6 +629,24 @@ const App = () => {
 
               // </Grid>
 
+              <Grid container
+              display={"flex"}
+              flexDirection={"row"}
+              direction={"row"}
+              justifyItems={"center"}
+              justifyContent={"center"}
+              orientation="row"
+              alignContent={"end"}
+              alignItems={"end"}
+            >
+
+
+              <Grid item display={"flex"}
+                justifyItems={"center"}
+                justifyContent={"center"}
+                alignContent={"end"}
+                alignItems={"end"}>
+
               <Button
                 component="a"
                 href="/inventary"
@@ -627,6 +655,14 @@ const App = () => {
               >
                 Invetary
               </Button>
+
+
+                  </Grid>
+
+                  </Grid>
+
+
+         
 
             )}
 
